@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import '../models/challenge_data.dart';
 import 'card_shell.dart';
 import 'pill.dart';
@@ -14,7 +15,7 @@ class DesktopChallengeCard extends StatelessWidget {
       width: 5,
       height: 5,
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.28),
+        color: Colors.white.withOpacity(0.8),
         shape: BoxShape.circle,
       ),
     ),
@@ -38,24 +39,35 @@ class DesktopChallengeCard extends StatelessWidget {
                   children: [
                     Row(
                       mainAxisSize: MainAxisSize.min,
-                      children: const [
+                      children: [
                         Text(
                           "Two Step Challenge",
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 16.5,
-                            fontWeight: FontWeight.w700,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                         SizedBox(width: 8),
                         Pill(
                           text: "PRO",
-                          color: chipPurple,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 2,
+                          textStyle: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xffCCDBFF),
                           ),
-                          fontSize: 10,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Color(0xff0249FE).withOpacity(0.4),
+                                Color(0xff80A4FE).withOpacity(0.5),
+                              ],
+                            ),
+                            borderRadius: BorderRadius.circular(100),
+                            border: Border.all(color: Color(0xff80A4FE)),
+                          ),
                         ),
                       ],
                     ),
@@ -64,10 +76,34 @@ class DesktopChallengeCard extends StatelessWidget {
                 ),
               ),
               // Status (right)
-              Pill(
-                text: data.funded ? "Funded" : "On Challenge",
-                color: data.funded ? chipGreen : chipBlue,
-              ),
+              data.funded
+                  ? Pill(
+                    text: "Funded",
+                    textStyle: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xff75DFA7),
+                    ),
+                    decoration: BoxDecoration(
+                      color: Color(0xff053321),
+                      border: Border.all(color: Color(0xff75DFA7)),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                  )
+                  : Pill(
+                    text: "On Challenge",
+
+                    textStyle: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xff80A4FE),
+                    ),
+                    decoration: BoxDecoration(
+                      color: Color(0xff11285F),
+                      border: Border.all(color: Color(0xff80A4FE)),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                  ),
             ],
           ),
           sp(10),
@@ -78,37 +114,114 @@ class DesktopChallengeCard extends StatelessWidget {
               const SizedBox(width: 6),
               Text(money(data.balance), style: valueStyle(true)),
               _dot(),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                decoration: BoxDecoration(
-                  color: chipGreen.withOpacity(0.15),
-                  borderRadius: BorderRadius.circular(6),
-                  border: Border.all(color: chipGreen, width: 1),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text("Bought ${data.boughtDate}", style: valueStyle()),
-                  ],
-                ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "Bought ",
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white.withOpacity(0.9),
+                    ),
+                  ),
+                  Text(
+                    data.boughtDate,
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white.withOpacity(0.9),
+                      decoration: TextDecoration.underline,
+                      decorationColor: Colors.white.withOpacity(0.9),
+                    ),
+                  ),
+                  SizedBox(width: 5),
+                  Icon(
+                    Icons.info_outline_rounded,
+                    color: Colors.white.withOpacity(0.5),
+                    size: 15,
+                  ),
+                ],
               ),
               _dot(),
               Text("ID :", style: labelStyle(context)),
               const SizedBox(width: 6),
               Text(data.id, style: valueStyle(true)),
+              SizedBox(width: 5),
+              Icon(
+                Icons.info_outline_rounded,
+                color: Colors.white.withOpacity(0.5),
+                size: 15,
+              ),
             ],
           ),
           sp(12),
           // stage chips row
           Wrap(
-            spacing: 10,
+            spacing: 5,
             runSpacing: 8,
-            children: const [
-              Pill(text: "Evaluation 1", color: chipPurple),
-              Pill(text: "Evaluation 2", color: chipPurple),
+            children: [
+              Pill(
+                text: "Evaluation 1",
+                textStyle: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
+                ),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Color(0xff5865F2),
+                      Color(0xff5865F2).withOpacity(0.4),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(100),
+                  border: Border.all(color: Color(0xff5865F2)),
+                ),
+              ),
+              Text(
+                '-----------------',
+                style: TextStyle(color: Colors.white.withOpacity(0.2)),
+              ),
+              Pill(
+                text: "Evaluation 2",
+                textStyle: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
+                ),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Color(0xff5865F2),
+                      Color(0xff5865F2).withOpacity(0.4),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(100),
+                  border: Border.all(color: Color(0xff5865F2)),
+                ),
+              ),
+              Text(
+                '-----------------',
+                style: TextStyle(color: Colors.white.withOpacity(0.2)),
+              ),
               Pill(
                 text: "Master Account",
-                color: chipBlue,
+                textStyle: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
+                ),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Color(0xff5865F2),
+                      Color(0xff5865F2).withOpacity(0.4),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(100),
+                  border: Border.all(color: Color(0xff5865F2)),
+                ),
                 icon: Icons.lock_outline,
               ),
             ],
@@ -119,7 +232,7 @@ class DesktopChallengeCard extends StatelessWidget {
             height: 42,
             child: ElevatedButton.icon(
               onPressed: () {},
-              icon: const Icon(Icons.dashboard_customize_outlined, size: 18),
+              icon: SvgPicture.asset("/images/dashboardIcon.svg"),
               label: const Text(
                 "Dashboard",
                 style: TextStyle(fontWeight: FontWeight.w600),
@@ -150,12 +263,12 @@ class DesktopAmount extends StatelessWidget {
       padding: const EdgeInsets.only(top: 8.0, bottom: 6),
       child: Text(
         amount,
-        style: const TextStyle(
+        style: TextStyle(
+          height: 1,
+          fontSize: 47,
+          letterSpacing: 2,
+          fontWeight: FontWeight.w600,
           color: Colors.white,
-          fontSize: 32,
-          fontWeight: FontWeight.w800,
-          height: 1.1,
-          letterSpacing: .2,
         ),
       ),
     );

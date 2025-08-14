@@ -18,7 +18,7 @@ class ChallengeBoard extends StatelessWidget {
       body: LayoutBuilder(
         builder: (context, c) {
           final w = c.maxWidth;
-          final isDesktop = w >= 1076;
+          final isDesktop = w >= 1157;
 
           if (vm.isLoading) {
             // keep centered loader while fake API loads
